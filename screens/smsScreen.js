@@ -12,9 +12,9 @@ export default function SmsScreen() {
             return;
         }
 
-        const isAvaliable = await SmsScreen.isAvaliableAsync();
+        const isAvailable = await SMS.isAvailableAsync();
 
-        if (isAvaliable) {
+        if (isAvailable) {
             await SMS.sendSMSAsync([phoneNumber], message);
         } else {
             Alert.alert("Erro", "Envio de SMS não está disponivel neste dispotivo.");

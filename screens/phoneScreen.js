@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import * as Linking from 'expo-linking';
+import call from 'react-native-phone-call';
 
 export default function PhoneScreen() {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -11,21 +11,25 @@ export default function PhoneScreen() {
             return;
         }
 
-        // A URL tel: aciona o aplicativo de telefone do dispositivo
-        Linking.openURL(`tel:${phoneNumber}`);
+        const args = {
+            number: phoneNumber,
+            prompt: false // Set to false to make the call without prompt
+        };
+
+        call(args).catch(console.error);
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Fazer uma ligação</Text>
             <TextInput
-            style={styles.input}
-            keyboardType='phone-pad'
-            placeholder='Digite o número'
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
+                style={styles.input}
+                keyboardType='phone-pad'
+                placeholder='Digite o número'
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
             />
-            <Button title='Ligar' onPress={makePhoneCall}/>
+            <Button title='Ligar' onPress={makePhoneCall} />
         </View>
     );
 }
